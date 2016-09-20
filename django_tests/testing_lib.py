@@ -76,6 +76,19 @@ class ApiTest(DrfTest, TestMixin):
 
         self.assertEquals(response.status_code, status_code)
         return response
+        
+    def options(self, path, user, status_code=status.HTTP_200_OK, print_response=False):
+        """ shortcut for login + client.options(...) + status checked """
+        self.login(user)
+        response = self.client.options(path)
+
+        # debug
+        if print_response:
+            print(response)
+            print(response.json())
+
+        self.assertEquals(response.status_code, status_code)
+        return response
 
     def delete(self, path, user, status_code=status.HTTP_204_NO_CONTENT, **extra):
         self.login(user)
