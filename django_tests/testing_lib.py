@@ -96,7 +96,7 @@ class ApiTest(DrfTest, TestMixin):
         self.assertEquals(response.status_code, status_code)
 
     def test_login_required(self):
-        self.get(self.get_path(), user=None, status_code=status.HTTP_403_FORBIDDEN)
+        self.get(self.get_path(), user=None, status_code=status.HTTP_401_UNAUTHORIZED)  # API should return 401 on auth failure
 
     def test_cannot_delete(self):
         raise NotImplementedError("We need to make sure that no one can delete anything via the API")
