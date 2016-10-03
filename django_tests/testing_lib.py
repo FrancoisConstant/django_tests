@@ -64,10 +64,10 @@ class ApiTest(DrfTest, TestMixin):
         self.assertEquals(response.status_code, status_code)
         return response
 
-    def put(self, path, data, user, status_code=status.HTTP_200_OK, print_response=False):
+    def put(self, path, data, user, status_code=status.HTTP_200_OK, format=None, print_response=False):
         """ shortcut for login + client.put(...) + status checked """
         self.login(user)
-        response = self.client.put(path, data=data)
+        response = self.client.put(path, data=data, format=format)
 
         # debug
         if print_response:
