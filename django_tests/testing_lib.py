@@ -90,10 +90,17 @@ class ApiTest(DrfTest, TestMixin):
         self.assertEquals(response.status_code, status_code)
         return response
 
-    def delete(self, path, user, status_code=status.HTTP_204_NO_CONTENT, **extra):
+    def delete(self, path, user, status_code=status.HTTP_204_NO_CONTENT, print_response=False, **extra):
         self.login(user)
         response = self.client.delete(path=path, user=user, **extra)
+
+        # debug
+        if print_response:
+            print(response)
+            print(response.json())
+
         self.assertEquals(response.status_code, status_code)
+        return response
 
     def test_login_required(self):
         self.get(self.get_path(), user=None, status_code=status.HTTP_401_UNAUTHORIZED)  # API should return 401 on auth failure
